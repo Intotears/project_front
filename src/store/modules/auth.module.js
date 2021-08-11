@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 const user = JSON.parse(localStorage.getItem("user"));
 const initialState = user
@@ -48,7 +48,6 @@ const auth = {
           (response) => {
             commit("registerSuccess");
             return Promise.resolve(response.data);
-
           },
           (error) => {
             commit("registerFailure");

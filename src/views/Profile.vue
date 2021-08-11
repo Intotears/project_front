@@ -16,8 +16,8 @@
         {{ currentUser.userEmail }}
       </p>
       <p>
-        <strong>User ID:</strong>
-        {{ currentUser.userID }}
+        <strong>User ID:</strong> 
+        {{ currentUser.userID}}
       </p>
     </div>
   </v-container>
