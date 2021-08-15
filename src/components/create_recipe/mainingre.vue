@@ -12,39 +12,24 @@
           align-content-center
         >
           <v-col cols="12" md="4" sm="2">
-            <v-autocomplete
-              v-model="mIngredient.ingredients"
-              :items="indredientsItems"
-              clearable
-              rounded
-              solo
-              label="Select ingredients"
+            <v-text-field
+              v-model="mIngredient.IngredientsName"
+              label="Your ingredients"
             >
-              ></v-autocomplete
+              ></v-text-field
             >
           </v-col>
           <v-col cols="12" md="1" sm="1"></v-col>
           <v-col cols="12" md="1" sm="1">
             <v-text-field
-              v-model="mIngredient.amount"
+              v-model="mIngredient.quantityValue"
               label="Amount"
             ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="2" sm="2">
-            <v-autocomplete
-              v-model="mIngredient.units"
-              :items="unitItems"
-              clearable
-              rounded
-              solo
-              label="Select units"
-            >
-            </v-autocomplete>
           </v-col>
 
           <v-col cols="12" md="2" sm="2">
             <v-text-field
-              v-model="mIngredient.calories"
+              v-model="$store.getters.getName"
               label="Calories"
               readonly
             ></v-text-field>
@@ -61,33 +46,47 @@
           >
         </div>
       </div>
+      <v-btn elevation="2" color="success" fab dark @click="addmIngredient()">
+      <v-icon> mdi-content-save </v-icon>
+    </v-btn>
     </v-container>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
-      mIngredients: [],
-      unitItems: ["กรัม", "กิโลกรัม", "ขีด", "ถ้วย"],
-      indredientsItems: ["หมู", "ไก่", "เห็ด", "ใบกะเพรา"],
+      //mIngredients: [],
+      categoryID: "1",
+      //calories:"",
     };
   },
   name: "Mainingre",
   methods: {
     add() {
       this.mIngredients.push({
-        ingredients: "",
-        amount: "",
-        units: "",
+        categoryID: "1",
+        IngredientsName: "",
+        quantityValue: "",
         calories: "",
       });
     },
     remove(index) {
       this.mIngredients.splice(index, 1);
     },
+    addmIngredient(){
+      const mIngredients = this.mIngredients;
+      console.log(this.mIngredients);
+      this.$store.dispatch("createRecipe/CreateMainIngredients", mIngredients);
+      console.log(this.$store.state.recipe);
+    },
+    },
+    computed: {
+    ...mapState("createRecipe", ["mIngredients"]),
   },
+  
 };
 </script>
 

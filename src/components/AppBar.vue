@@ -8,7 +8,6 @@
         ></v-app-bar-nav-icon>
         <v-app-bar-title><h3 class="headline">Yum!</h3></v-app-bar-title>
         <v-spacer />
-
         <v-menu offset-y open-on-hover>
           <template v-slot:activator="{ on, attrs }">
             <v-btn text dark v-bind="attrs" v-on="on">
@@ -33,7 +32,7 @@
             </v-list-item>
           </v-list>
         </v-menu>
-       <v-chip @click="logout">logout</v-chip>
+        <v-chip @click="logout">logout</v-chip>
       </v-app-bar>
       <v-navigation-drawer v-model="drawer" flat app dark>
         <v-list rounded>
@@ -74,7 +73,6 @@
         <v-app-bar-title><h3 class="headline">Yum!</h3></v-app-bar-title>
 
         <v-spacer />
-
       </v-app-bar>
     </div>
   </div>

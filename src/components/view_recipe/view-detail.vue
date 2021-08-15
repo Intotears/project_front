@@ -9,7 +9,12 @@
             size="25"  
           >
             <v-img :src="thisRecipe.img"></v-img>
-          </v-avatar><span class="font-weight-regular" style="margin-left: -10px"> username</span>
+          </v-avatar>
+          <router-link to="/profile" class="text-decoration-none black--text">
+          <span class="text-decoration-none" style="margin-left: -10px"> 
+              {{currentUser.username}}
+          </span>
+          </router-link>
       </v-container>
       <v-row>
         <v-col col="5"></v-col>
@@ -71,6 +76,9 @@ export default {
     ...mapState("viewRecipe", ["recipe"]),
     thisRecipe() {
       return this.recipe.find((v) => v.recipeID == this.$route.params.id);
+    },
+    currentUser() {
+      return this.$store.state.auth.user;
     },
   },
   created() {

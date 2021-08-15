@@ -11,7 +11,7 @@ const auth = {
   actions: {
     async login({ commit }, user) {
       await axios
-        .post("http://localhost:3000/api/auth/" + "signin", {
+        .post(`${process.env.VUE_APP_BACKEND}/api/auth/` + 'signin',{
           username: user.username,
           userPassword: user.password,
         })
@@ -38,7 +38,7 @@ const auth = {
     },
     async register({ commit }, user) {
       return axios
-        .post("http://localhost:3000/api/auth/" + "signup", {
+        .post(`${process.env.VUE_APP_BACKEND}/api/auth/`+ 'signup', {
           name: user.name,
           username: user.username,
           userEmail: user.email,

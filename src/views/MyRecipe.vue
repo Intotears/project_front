@@ -101,7 +101,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("myrecipes/loadMyRecipes");
+    this.$store.dispatch("myrecipes/loadMyRecipes", this.currentUser.userID);
   },
   methods: {
     EditRecipe(id) {
