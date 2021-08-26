@@ -11,17 +11,17 @@ const routes = [
     component: Home,
   },
   {
-    path: "/CreateRecipe",
+    path: "/createRecipe",
     name: "CreateRecipe",
     component: () => import("@/views/CreateRecipe.vue"),
   },
   {
     path: "/test",
     name: "test",
-    component: () => import("@/components/test.vue"),
+    component: () => import("@/views/test.vue"),
   },
   {
-    path: "/MyRecipe",
+    path: "/myRecipe",
     name: "MyRecipe",
     component: () => import("@/views/MyRecipe.vue"),
   },
@@ -36,17 +36,17 @@ const routes = [
     component: () => import("@/views/Login.vue"),
   },
   {
-    path: "/EditRecipe/:id", 
+    path: "/editRecipe/:id", 
     name: "EditRecipe",
     component: () => import("@/views/EditRecipe.vue"),
   },
   {
-    path: "/Profile", 
+    path: "/profile", 
     name: "Profile",
     component: () => import("@/views/Profile.vue"),
   },
   {
-    path: "/ViewRecipe/:id", 
+    path: "/viewRecipe/:id", 
     name: "ViewRecipe",
     component: () => import("@/views/ViewRecipe.vue"),
   },
@@ -54,6 +54,11 @@ const routes = [
     path: "/index",
     name: "Index",
     component:() => import("@/views/index.vue"),
+  },
+  {
+    path: "/collection",
+    name: "Collection",
+    component:() => import("@/views/Collection.vue"),
   },
 ];
 
@@ -66,6 +71,12 @@ const router = new VueRouter({
 export default router;
 
 router.beforeEach((to, from, next) => {
+  let documentTitle = `${to.name} - ${process.env.VUE_APP_TITLE}` 
+  // if (to.params.name){
+  //   document.title += `${to.params.name}`
+  // }
+  document.title = documentTitle
+
   const publicPages = ['/login', '/register', '/index', '/test'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
@@ -78,3 +89,4 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
+

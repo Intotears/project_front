@@ -85,28 +85,24 @@ export default {
     drawer: false,
     navItems: [
       { title: "Home", icon: "mdi-home", route: "/" },
-      { title: "My recipes", icon: "mdi-book-multiple", route: "/MyRecipe" },
-      { title: "Create Recipe", icon: "mdi-pencil", route: "/CreateRecipe" },
+      { title: "My recipes", icon: "mdi-book-open-variant", route: "/myRecipe" },
+      { title: "Create Recipe", icon: "mdi-pencil", route: "/createRecipe" },
+      { title: "Collection", icon: "mdi-bookmark-multiple", route: "/collection" },
       { title: "Test", icon: "mdi-pencil", route: "/test" },
     ],
     userItems: [
-      {
+      { icon: "mdi-account",
         title: "Profile",
-        icon: "mdi-account",
         route: "/profile",
       },
       { title: "Setting", icon: "mdi-cog" },
-      {
-        title: "Logout",
-        icon: "mdi-logout-variant",
-        route: "",
-      },
     ],
   }),
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
     },
+
   },
   methods: {
     logout() {

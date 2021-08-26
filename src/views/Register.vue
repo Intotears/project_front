@@ -63,6 +63,12 @@
               :class="successful ? 'alert-success' : 'alert-danger'"
             >
               {{ message }}
+              <div v-if="this.successful === true">
+                <v-chip to="/login" color="success">login</v-chip>
+              </div>
+              <div v-if="this.successful === false">
+                <v-chip @click="reloadPage" color="warning">Register again</v-chip>
+              </div>
             </div>
           </v-form>
         </v-col>
@@ -87,7 +93,7 @@ export default {
       usernameRules: [(v) => !!v || "Username is required"],
       passwordRules: [
         (v) => !!v || "Password is required",
-        (v) => (v && v.length) >= 8 || "Password must have 8",
+        (v) => (v && v.length) >= 8 || "Password must have 8 characters",
       ],
       emailRules: [
         (v) => !!v || "E-mail is required",
@@ -134,6 +140,9 @@ export default {
           }
         );
       }
+    },
+    reloadPage() {
+      window.location.reload();
     },
   },
 };

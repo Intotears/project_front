@@ -1,6 +1,5 @@
 <template>
   <v-app style="background-color: #FFF3E0">
-    <app-bar />
     <v-container>
       <v-stepper v-model="step">
         <v-stepper-header>
@@ -111,7 +110,6 @@ export default {
     };
   },
   components: {
-    AppBar: () => import("../components/AppBar.vue"),
     editDetail: () => import("../components/edit_recipe/edit-detail.vue"),
     editMainingre: () => import("../components/edit_recipe/edit-mainingre.vue"),
     editSubingre: () => import("../components/edit_recipe/edit-subingre.vue"),

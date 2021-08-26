@@ -13,7 +13,7 @@
         >
           <v-col cols="12" md="4" sm="2">
             <v-text-field
-              v-model="mIngredient.IngredientsName"
+              v-model="mIngredient.ingredientsName"
               label="Your ingredients"
             >
               ></v-text-field
@@ -29,7 +29,7 @@
 
           <v-col cols="12" md="2" sm="2">
             <v-text-field
-              v-model="$store.getters.getName"
+              v-model="mIngredient.calories"
               label="Calories"
               readonly
             ></v-text-field>
@@ -46,9 +46,11 @@
           >
         </div>
       </div>
+      <div>
       <v-btn elevation="2" color="success" fab dark @click="addmIngredient()">
       <v-icon> mdi-content-save </v-icon>
     </v-btn>
+    </div>
     </v-container>
   </div>
 </template>
@@ -59,7 +61,7 @@ export default {
   data() {
     return {
       //mIngredients: [],
-      categoryID: "1",
+      //categoryID: "1",
       //calories:"",
     };
   },
@@ -68,7 +70,7 @@ export default {
     add() {
       this.mIngredients.push({
         categoryID: "1",
-        IngredientsName: "",
+        ingredientsName: "",
         quantityValue: "",
         calories: "",
       });
@@ -76,17 +78,16 @@ export default {
     remove(index) {
       this.mIngredients.splice(index, 1);
     },
-    addmIngredient(){
+    addmIngredient() {
       const mIngredients = this.mIngredients;
       console.log(this.mIngredients);
       this.$store.dispatch("createRecipe/CreateMainIngredients", mIngredients);
       console.log(this.$store.state.recipe);
     },
-    },
-    computed: {
+  },
+  computed: {
     ...mapState("createRecipe", ["mIngredients"]),
   },
-  
 };
 </script>
 

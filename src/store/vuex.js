@@ -5,6 +5,8 @@ import auth from "./modules/auth.module";
 import editRecipe from './modules/EditRecipe';
 import allrecipes from './modules/AllRecipe';
 import viewRecipe from './modules/ViewRecipe';
+import createRecipe from "./modules/CreateRecipe";
+import mycollection from "./modules/Collection";
 
 Vue.use(Vuex);
 
@@ -13,10 +15,12 @@ export default new Vuex.Store({
   mutations: {},
   actions: {},
   modules: {
+    createRecipe,
     myrecipes,
     auth,
     editRecipe,
     allrecipes,
     viewRecipe,
+    mycollection,
   },
 });

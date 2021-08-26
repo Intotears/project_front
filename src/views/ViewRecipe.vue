@@ -1,6 +1,6 @@
 <template>
   <v-app style="background-color: #FFF3E0">
-    <app-bar />
+   
     <v-container style="background-color: #FFFF ">
          <v-icon>mdi-chevron-left</v-icon><router-link to="/MyRecipe" class="text-decoration-none black--text">
          <span>กลับไปยัง My Recipe</span></router-link>
@@ -74,7 +74,6 @@ export default {
     };
   },
   components: {
-    AppBar: () => import("../components/AppBar.vue"),
     viewDetail: () => import("../components/view_recipe/view-detail.vue"),
     viewMainingre: () => import("../components/view_recipe/view-mainingre.vue"),
     viewSubingre: () => import("../components/view_recipe/view-subingre.vue"),
