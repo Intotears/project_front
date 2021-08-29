@@ -24,7 +24,7 @@
 <script>
 
 import popular from '../components/popularRecipe/popular.vue';
-import PublicRecipe from '../components/popularRecipe/publicRecipe.vue';
+import PublicRecipe from '../components/popularRecipe/public-recipe.vue';
 
 export default {
   components: { popular, PublicRecipe },

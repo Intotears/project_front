@@ -14,8 +14,9 @@ const mycollection = {
     LOAD_COLLECTION: (state, collection) => {
       state.recipeCollection = collection;
     },
-    REMOVE_RECIPE: (state, recipe) =>{
-      state.recipeCollection = recipe;
+    REMOVE_RECIPE: (state, id) =>{
+      const index = state.recipe.findIndex(r => r.recipeID == id)
+      state.recipe.splice(index, 1)
     },
     ADD_RECIPE: (state, recipe) =>{
       state.recipeCollection = recipe;

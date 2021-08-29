@@ -6,6 +6,7 @@ const myrecipes = {
     recipe: [],
     ingredient:[],
     process:[],
+    recipeProfile: [],
   },
   getters: {
     allMyRecipes: (state) => state.recipe,
@@ -13,6 +14,9 @@ const myrecipes = {
   mutations: {
     LOAD_MYRECIPES: (state, recipe)=>{
       state.recipe = recipe;
+    },
+    LOAD_RECIPEPROFILE: (state, recipeProfile)=>{
+      state.recipeProfile = recipeProfile;
     },
     LOAD_INGREDIENT: (state, ingredient)=>{
       state.ingredient = ingredient;
@@ -42,10 +46,20 @@ const myrecipes = {
 },
   actions: {
     async loadMyRecipes({ commit }, userID) {
+      console.log("userID in vuex ",userID);
       await axios
         .get(`${process.env.VUE_APP_BACKEND}/api/find/recipeByUserID/${userID}`)
         .then((response) => {
           commit("LOAD_MYRECIPES", response.data);
+          console.log(response.data);
+        })
+        .catch((error) => console.log(error));
+    },
+    async loadRecipesInProfile({ commit }, userID) {
+      await axios
+        .get(`${process.env.VUE_APP_BACKEND}/api/find/RecipeInUserProfile/${userID}`)
+        .then((response) => {
+          commit("LOAD_RECIPEPROFILE", response.data);
           console.log(response.data);
         })
         .catch((error) => console.log(error));
@@ -70,7 +84,7 @@ const myrecipes = {
     },
     async DeleteDetail({ commit }, id) {
       await axios
-        .delete(`${process.env.VUE_APP_BACKEND}/api/detail/delete/` + id ,
+        .delete(`${process.env.VUE_APP_BACKEND}/api/detail/delete/${id}`
         )
         .then((response) => {
           commit("DELETE_DETAIL", id);
@@ -80,7 +94,7 @@ const myrecipes = {
     },
     async DeleteIngredient({ commit }, id) {
       await axios
-        .delete(`${process.env.VUE_APP_BACKEND}/api/ingredient/delete/` + id ,
+        .delete(`${process.env.VUE_APP_BACKEND}/api/ingredient/deleteByRecipeID/${id}`
         )
         .then((response) => {
           commit("DELETE_INGREDIENT", id);
@@ -90,7 +104,7 @@ const myrecipes = {
     },
     async DeleteProcess({ commit }, id) {
       await axios
-        .delete(`${process.env.VUE_APP_BACKEND}/api/cooking_process/delete/` + id ,
+        .delete(`${process.env.VUE_APP_BACKEND}/api/cooking_process/delete/${id}`
         )
         .then((response) => {
           commit("DELETE_PROCESS", id);

@@ -6,7 +6,6 @@
         color="purple"
         dark
         style="max-width: 550px;"
-        
       >
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
@@ -25,20 +24,16 @@
             readonly
           ></v-rating>
 
-          <v-btn
-            icon
-            v-if="canCollect == true"
-            @click="addToCollection(all.recipeID)"
-          >
+          <!-- <v-btn icon @click="addToCollection(all.recipeID)">
             <v-icon>mdi-bookmark-outline</v-icon>
-          </v-btn>
+          </v-btn> -->
           <v-btn
-            icon
-            v-if="canCollect == false"
-            @click="removeFromCollection(all.recipeID)"
-          >
-            <v-icon>mdi-bookmark-check</v-icon>
-          </v-btn>
+              icon
+            
+              @click="removeFromCollection(all.recipeID)"
+            >
+              <v-icon>mdi-bookmark-check</v-icon>
+            </v-btn>
         </v-card-actions>
         <v-divider dark class="mb-2"></v-divider>
 
@@ -60,7 +55,9 @@
               </div>
             </v-card-title>
             <v-card-subtitle>
-              <p class="text-overline">By {{ }}</p>
+              <p class="text-overline">
+                By {{ all.user ? all.user.userName : "-" }}
+              </p>
             </v-card-subtitle>
             <v-card-text>
               <p>{{ all.description }}</p>
@@ -84,12 +81,14 @@ export default {
   },
   computed: {
     ...mapState("allrecipes", ["allRecipes"]),
-    ...mapState("allrecipes", ["rating"]),
+    // ...mapState("allrecipes", ["rating"]),
     ...mapState("mycollection", ["recipeCollection"]),
     thisRating() {
       return this.allRecipes.find((v) => v.recipeID == this.rating.recipeID);
     },
-   
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
   },
   created() {
     this.$store.dispatch("allrecipes/loadAllRecipes");
@@ -99,11 +98,7 @@ export default {
     ShowRating() {
       return this.rating.find((v) => v.recipeID == this.allRecipes.recipeID);
     },
-    // alreadyCollect() {
-    //   if(this.$store.state.allRecipes.recipeID == this.$store.state.mycollection.recipeID){
-    //     this.canCollect = false
-    //   }
-    // },
+
     addToCollection(id) {
       this.$store.dispatch("mycollection/StoreUserID", this.currentUser.userID);
       this.$store.dispatch("mycollection/addToCollection", id);

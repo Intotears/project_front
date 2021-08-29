@@ -30,55 +30,40 @@
                 </td>
 
                 <td>
-                  <!-- <v-btn
-                    class="error"
-                    text
-                    @click="removeFromCollection(recipeCol.recipeID)"
-                  >
-                    Remove
-                  </v-btn> -->
-                  <v-dialog v-model="dialog" persistent max-width="290">
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn
-                        elevation="2"
-                        class="error"
-                        dark
-                        v-bind="attrs"
-                        v-on="on"
-                        @click="dialog = true"
-                      >
-                        Delete
-                      </v-btn>
-                    </template>
-                    <v-card>
-                      <v-card-title class="headline">
-                        Are you sure to remove this recipe?
-                      </v-card-title>
-                      <v-card-text>
-                        <v-icon> mdi-emoticon </v-icon></v-card-text
-                      >
-                      <v-card-actions>
-                        <v-btn
-                          color="green darken-1"
-                          text
-                          @click="dialog = false"
-                        >
-                          Cancel
-                        </v-btn>
-                        <v-spacer></v-spacer>
-                        <v-btn
-                          color="error"
-                          text
-                          @click="removeFromCollection(recipeCol.recipeID)"
-                        >
-                          Delete
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
+                  <v-btn
+                  elevation="2"
+                  color="error"
+                  dark
+                  @click="dialog = true; recipeIDToRemove = recipeCol?recipeCol.recipeID:''"
+                >
+                  Remove
+                </v-btn>
+                 
                 </td>
               </tr>
             </tbody>
+            <v-dialog v-model="dialog" persistent max-width="290">
+              
+              <v-card>
+                <v-card-title class="headline">
+                  Are you sure to remove this recipe from the collection?
+                </v-card-title>
+                
+                <v-card-actions>
+                  <v-btn color="green darken-1" text @click="dialog = false">
+                    Cancel
+                  </v-btn>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    color="error"
+                    text
+                    @click="removeFromCollection"
+                  >
+                    Remove
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </template>
         </v-simple-table>
       </v-container>
@@ -94,7 +79,8 @@ export default {
   data() {
     return {
       dialog: false,
-      activator: null,
+      // activator: null,
+      recipeIDToRemove: "",
     };
   },
   computed: {
@@ -120,11 +106,11 @@ export default {
       this.$store.dispatch("viewRecipe/storeID", id),
         this.$router.push({ path: `/ViewRecipe/${id}` });
     },
-    removeFromCollection(id) {
+    removeFromCollection() {
       this.$store.dispatch("mycollection/StoreUserID", this.currentUser.userID);
-      this.$store.dispatch("mycollection/removeFromCollection", id);
+      this.$store.dispatch("mycollection/removeFromCollection", this.recipeIDToRemove );
       this.dialog = false;
-      window.location.reload();
+      // window.location.reload();
     },
   },
   mounted() {

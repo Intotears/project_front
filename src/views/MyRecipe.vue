@@ -1,7 +1,6 @@
 <template>
   <v-container>
-    <h1 class="headline">My recipes</h1>
-
+    <h1 class="headline">This is my recipes</h1>
     <div>
       <v-container>
         <v-simple-table class="justify-space-around">
@@ -24,58 +23,52 @@
                   {{ myRecipes.recipeName }}
                 </td>
 
-                <td>
+                <td class="text-left">
                   <v-btn
-                    class="primary"
-                    text
+                    color="primary"
                     @click="EditRecipe(myRecipes.recipeID)"
-                    
+                    class="margin-right:20p"
                     >Edit
                   </v-btn>
                   &nbsp;
-                  <v-dialog v-model="dialog" persistent max-width="290">
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn
-                        elevation="2"
-                        class="error"
-                        dark
-                        v-bind="attrs"
-                        v-on="on"
-                        @click="dialog = true"
-                      >
-                        Delete
-                      </v-btn>
-                    </template>
-                    <v-card>
-                      <v-card-title class="headline">
-                        Are you sure to delete this recipe?
-                      </v-card-title>
-                      <v-card-text
-                        >If you delete it, you cannot restore this recipe.
-                        <v-icon> mdi-emoticon </v-icon></v-card-text
-                      >
-                      <v-card-actions>
-                        <v-btn
-                          color="green darken-1"
-                          text
-                          @click="dialog = false"
-                        >
-                          Cancel
-                        </v-btn>
-                        <v-spacer></v-spacer>
-                        <v-btn
-                          color="error"
-                          text
-                          @click="DeleteRecipe(myRecipes.recipeID)"
-                        >
-                          Delete
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
+                 
+                <v-btn
+                  elevation="2"
+                  color="error"
+                  dark
+                  @click="dialog = true; recipeIDToDelete = myRecipes?myRecipes.recipeID:''"
+                >
+                  Delete
+                </v-btn>
+           
                 </td>
               </tr>
             </tbody>
+            <v-dialog v-model="dialog" persistent max-width="290">
+              
+              <v-card>
+                <v-card-title class="headline">
+                  Are you sure to delete this recipe?
+                </v-card-title>
+                <v-card-text
+                  >If you delete it, you cannot restore this recipe.
+                  <v-icon> mdi-emoticon </v-icon></v-card-text
+                >
+                <v-card-actions>
+                  <v-btn color="green darken-1" text @click="dialog = false">
+                    Cancel
+                  </v-btn>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    color="error"
+                    text
+                    @click="DeleteRecipe"
+                  >
+                    Delete
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </template>
         </v-simple-table>
       </v-container>
@@ -85,13 +78,13 @@
 
 <script>
 import { mapState } from "vuex";
-
 export default {
   name: "MyRecipe",
   data() {
     return {
       dialog: false,
-      activator: null,
+      // activator: null,
+      recipeIDToDelete: "",
     };
   },
   computed: {
@@ -101,23 +94,25 @@ export default {
     },
   },
   created() {
+    console.log("userID ", this.currentUser.userID);
     this.$store.dispatch("myrecipes/loadMyRecipes", this.currentUser.userID);
+    this.$store.dispatch("myrecipes/loadIngredient");
+    this.$store.dispatch("myrecipes/loadProcess");
   },
   methods: {
     EditRecipe(id) {
-      this.$store.dispatch("editRecipe/storeID", id),
-        // this.$store.dispatch('editRecipe/gotoEditRecipe')
-        this.$router.push({ path: `/EditRecipe/${id}` });
+      this.$router.push({ path: `/editRecipe/${id}` });
     },
-    DeleteRecipe(id) {
-      this.$store.dispatch("myrecipes/DeleteDetail", id),
-      this.$store.dispatch("myrecipes/DeleteIngredient", id),
-      this.$store.dispatch("myrecipes/DeleteProcess", id)
-      
+    DeleteRecipe() {
+      console.log("recipeIDToDelete ", this.recipeIDToDelete);
+      this.$store.dispatch("myrecipes/DeleteDetail", this.recipeIDToDelete);
+      this.$store.dispatch("myrecipes/DeleteIngredient", this.recipeIDToDelete);
+      this.$store.dispatch("myrecipes/DeleteProcess", this.recipeIDToDelete);
+      this.dialog = false;
     },
     ViewRecipe(id) {
       this.$store.dispatch("viewRecipe/storeID", id),
-        this.$router.push({ path: `/ViewRecipe/${id}` });
+        this.$router.push({ path: `/viewRecipe/${id}` });
     },
   },
   mounted() {
