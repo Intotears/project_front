@@ -29,7 +29,6 @@
           </v-btn> -->
           <v-btn
               icon
-            
               @click="removeFromCollection(all.recipeID)"
             >
               <v-icon>mdi-bookmark-check</v-icon>
@@ -101,11 +100,11 @@ export default {
 
     addToCollection(id) {
       this.$store.dispatch("mycollection/StoreUserID", this.currentUser.userID);
-      this.$store.dispatch("mycollection/addToCollection", id);
+      this.$store.dispatch("mycollection/AddToCollection", id);
     },
     removeFromCollection(id) {
       this.$store.dispatch("mycollection/StoreUserID", this.currentUser.userID);
-      this.$store.dispatch("mycollection/removeFromCollection", id);
+      this.$store.dispatch("mycollection/RemoveFromCollectionn", id);
     },
   },
 };

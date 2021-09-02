@@ -10,7 +10,11 @@
           :key="i"
           class="text-fields-row"
           align-content-center
+          num="i"
         >
+          <v-col cols="1" lg="1" md="1" sm="1">
+            <v-text-field readonly v-text="(num = i + 1)"></v-text-field>
+          </v-col>
           <v-col cols="12" md="4" sm="2">
             <v-text-field
               v-model="mIngredient.ingredientsName"
@@ -45,12 +49,10 @@
             ><v-icon>mdi-plus </v-icon>add</v-btn
           >
         </div>
+        <v-btn color="primary" text @click="addmIngredient()">
+              plz
+        </v-btn>
       </div>
-      <div>
-      <v-btn elevation="2" color="success" fab dark @click="addmIngredient()">
-      <v-icon> mdi-content-save </v-icon>
-    </v-btn>
-    </div>
     </v-container>
   </div>
 </template>
@@ -69,7 +71,7 @@ export default {
   methods: {
     add() {
       this.mIngredients.push({
-        categoryID: "1",
+        categoryName: "Main",
         ingredientsName: "",
         quantityValue: "",
         calories: "",

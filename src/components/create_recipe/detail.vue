@@ -65,22 +65,24 @@
         </v-col>
       </v-row>
     </v-container>
-
+    <v-container>
+      <foodtag />
+    </v-container>
     <v-container>
       <h3>Share option</h3>
-      <v-container class="px-0" fluid>
-        <v-checkbox
-          v-model="shareOption"
-          :label="`ทำเครื่องหมายในช่องเพื่อเปิดเผยสูตรต่อสาธารณะ`"
-        >
-        </v-checkbox>
-      </v-container>
+          <v-switch
+            v-model="shareOption"
+            flat
+            label="กดเพื่อเปิดเผยสูตรต่อสาธารณะ"
+          ></v-switch>
+
     </v-container>
-    <div>
-      <v-btn elevation="2" color="success" fab dark @click="addDetail()">
-        <v-icon> mdi-content-save </v-icon>
-      </v-btn>
-    </div>
+    <v-btn elevation="2" color="success" fab dark @click="addDetail()">
+      <v-icon> mdi-content-save </v-icon>
+    </v-btn>
+    <v-btn elevation="2" color="error" fab dark @click="removeRecipeID()">
+      <v-icon> mdi-content-save </v-icon>
+    </v-btn>
   </div>
 </template>
 
@@ -96,7 +98,7 @@ export default {
       description: "",
       time: "",
       serveNumber: "",
-      shareOption: "",
+      shareOption: "true",
     };
   },
   methods: {
@@ -112,17 +114,22 @@ export default {
         serveNumber: this.serveNumber,
         shareOption: this.shareOption,
       };
-      console.log(recipe);
       this.$store.dispatch("createRecipe/StoreUserID", this.currentUser.userID);
       this.$store.dispatch("createRecipe/CreateDetail", recipe);
-      console.log(this.$store.state.recipe);
     },
+    removeRecipeID(){
+      this.$store.dispatch("createRecipe/RemoveRecipeID");
+    }
   },
   computed: {
     ...mapState("createRecipe", ["recipe"]),
     currentUser() {
       return this.$store.state.auth.user;
     },
+    
+  },
+  components: {
+    foodtag: () => import("./foodtag.vue"),
   },
 };
 </script>

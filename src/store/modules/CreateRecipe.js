@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const localStorageRecipeID = JSON.parse(localStorage.getItem("recipe"));
+
 const createRecipe = {
   namespaced: true,
   state: {
@@ -10,10 +12,12 @@ const createRecipe = {
     flavoring: [],
     processes: [],
     id: "",
+    localStorageRecipeID
   },
   getters: {
     getRecipes: (state) => state.recipe,
     findUserID: (state) => state.id,
+    findRecipeID: (state) => state.localStorageRecipeID.recipeID
   },
   mutations: {
     SET_Detail: (state, recipe) => {
@@ -37,29 +41,13 @@ const createRecipe = {
     StoreUserID: (state, id) => {
       state.id = id;
     },
+    RemoveRecipeID: (state) =>{
+      state.localStorageRecipeID.recipeID = null;
+    }
   },
   actions: {
     async StoreUserID({ commit }, id) {
       commit("StoreUserID", id);
-    },
-    async CreateDetail({ commit, getters }, recipe) {
-      console.log("vuex createDetail", recipe);
-      console.log(recipe);
-      const id = getters.findUserID;
-      await axios
-        .post(`${process.env.VUE_APP_BACKEND}/api/recipe/create/${id}`, {
-          shareOption: recipe.shareOption,
-          recipeName: recipe.recipeName,
-          description: recipe.description,
-          time: recipe.time,
-          serveNumber: recipe.serveNumber,
-          image: recipe.image,
-        })
-        .then((response) => {
-          commit("SET_Detail", response.data);
-          console.log(response.data);
-        })
-        .catch((error) => console.error(error.response.data));
     },
     async loadFoodtag({ commit }) {
       await axios
@@ -125,6 +113,32 @@ const createRecipe = {
           console.log(response.data);
         })
         .catch((error) => console.error(error.response.data));
+    },
+    async CreateDetail({ commit, getters }, recipe) {
+      console.log("vuex createDetail", recipe);
+      console.log(recipe);
+      const id = getters.findUserID;
+      await axios
+        .post(`${process.env.VUE_APP_BACKEND}/api/recipe/create/${id}`, {
+          shareOption: recipe.shareOption,
+          recipeName: recipe.recipeName,
+          description: recipe.description,
+          time: recipe.time,
+          serveNumber: recipe.serveNumber,
+          image: recipe.image,
+        })
+        .then((response) => {
+          commit("SET_Detail", response.data);
+          if(response.data.recipeID){
+            localStorage.setItem("recipe", JSON.stringify(response.data));
+          }
+          return response.data;
+        })
+        .catch((error) => console.error(error.response.data));
+    },
+    async RemoveRecipeID({ commit }) {
+      localStorage.removeItem("recipe");
+      commit("RemoveRecipeID");
     },
   },
 };

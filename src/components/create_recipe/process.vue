@@ -9,7 +9,7 @@
             class="text-fields-row"
             align-content-center
           >
-            <v-col cols="4" md="3" sm="3" align-center>
+           <v-col cols="4" md="3" sm="3" align-center>
               <v-img
                 :src="url_process"
                 contain
@@ -33,9 +33,8 @@
                 solo
                 counter
                 label="Descript cooking process ex. 1. Boil water"
-                
                 maxlength="500"
-                v-model="process.proDescript"
+                v-model="process.processDescription"
               ></v-textarea>
             </v-col>
             <v-col cols="1" md="1">
@@ -48,7 +47,11 @@
             <v-btn @click="add4" width="100px" rounded class="primary"
               ><v-icon>mdi-plus </v-icon>add</v-btn
             >
+            <v-btn elevation="2" color="success" fab dark @click="addProcess()">
+            <v-icon> mdi-content-save </v-icon>
+          </v-btn>
           </div>
+          
         </template>
       </div>
     </v-container>
@@ -56,11 +59,11 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "Process",
   data() {
     return {
-      processes: [],
       urlImg: null,
       url_process: null,
     };
@@ -68,8 +71,8 @@ export default {
   methods: {
     add4() {
       this.processes.push({
-        proImg: "",
-        proDescript: "",
+        processImage:"",
+        processDescription: "",
       });
     },
     remove4(index) {
@@ -78,7 +81,17 @@ export default {
     Preview_imageProcess() {
       this.url_process = URL.createObjectURL(this.urlImg);
     },
+    addProcess() {
+      const processes = this.processes;
+      console.log(this.processes);
+      this.$store.dispatch("createRecipe/CreateCookingprocess", processes);
+      console.log(this.$store.state.recipe);
+    },
   },
+  computed: {
+    ...mapState("createRecipe", ["processes"]),
+  },
+
 };
 </script>
 

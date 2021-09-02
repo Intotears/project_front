@@ -23,8 +23,8 @@
 
 <script>
 
-import popular from '../components/popularRecipe/popular.vue';
-import PublicRecipe from '../components/popularRecipe/public-recipe.vue';
+import popular from '../components/show_recipe/popular.vue';
+import PublicRecipe from '../components/show_recipe/public-recipe.vue';
 
 export default {
   components: { popular, PublicRecipe },

@@ -49,7 +49,7 @@ const mycollection = {
         })
         .catch((error) => console.log(error));
     },
-    async addToCollection({ commit, getters }, id) {
+    async AddToCollection({ commit, getters }, id) {
       const userID = getters.findUserID;
       await axios
         .post(`${process.env.VUE_APP_BACKEND}/api/add/collection/${userID}/` + id ,
@@ -60,7 +60,7 @@ const mycollection = {
         })
         .catch((error) => console.log(error));
     },
-    // async deleteRecipeFromCol({commit}, id){
+    // async RemoveFromCollection({commit}, id){
     //   await axios.delete(`${process.env.VUE_APP_BACKEND}/api/find/collection/${userID}`)
     // }
   },

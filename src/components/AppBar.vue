@@ -7,6 +7,12 @@
           dark
         ></v-app-bar-nav-icon>
         <v-app-bar-title><h3 class="headline">Yum!</h3></v-app-bar-title>
+        <v-text-field
+            solo
+            label="Append"
+            append-icon="mdi-map-marker"
+          ></v-text-field>
+
         <v-spacer />
         <v-menu offset-y open-on-hover>
           <template v-slot:activator="{ on, attrs }">

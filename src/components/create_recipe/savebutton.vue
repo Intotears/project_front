@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import Detail from './detail.vue';
+const content = Detail
 export default {
   name: "Savebutton",
   data() {
@@ -45,8 +47,9 @@ export default {
   },
   methods: {
     addRecipe(){
-      
-    }
+      content.methods.addDetail();
+    },
+     
   },
 };
 </script>
