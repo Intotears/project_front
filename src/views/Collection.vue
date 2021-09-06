@@ -110,7 +110,7 @@ export default {
       this.$store.dispatch("mycollection/StoreUserID", this.currentUser.userID);
       this.$store.dispatch("mycollection/removeFromCollection", this.recipeIDToRemove );
       this.dialog = false;
-      // window.location.reload();
+      window.location.reload();
     },
   },
   mounted() {

@@ -80,9 +80,6 @@
     <v-btn elevation="2" color="success" fab dark @click="addDetail()">
       <v-icon> mdi-content-save </v-icon>
     </v-btn>
-    <v-btn elevation="2" color="error" fab dark @click="removeRecipeID()">
-      <v-icon> mdi-content-save </v-icon>
-    </v-btn>
   </div>
 </template>
 
@@ -117,16 +114,12 @@ export default {
       this.$store.dispatch("createRecipe/StoreUserID", this.currentUser.userID);
       this.$store.dispatch("createRecipe/CreateDetail", recipe);
     },
-    removeRecipeID(){
-      this.$store.dispatch("createRecipe/RemoveRecipeID");
-    }
   },
   computed: {
     ...mapState("createRecipe", ["recipe"]),
     currentUser() {
       return this.$store.state.auth.user;
     },
-    
   },
   components: {
     foodtag: () => import("./foodtag.vue"),

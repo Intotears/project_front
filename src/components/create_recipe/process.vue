@@ -91,7 +91,6 @@ export default {
   computed: {
     ...mapState("createRecipe", ["processes"]),
   },
-
 };
 </script>
 

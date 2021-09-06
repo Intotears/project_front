@@ -105,9 +105,9 @@ export default {
     },
     DeleteRecipe() {
       console.log("recipeIDToDelete ", this.recipeIDToDelete);
-      this.$store.dispatch("myrecipes/DeleteDetail", this.recipeIDToDelete);
       this.$store.dispatch("myrecipes/DeleteIngredient", this.recipeIDToDelete);
       this.$store.dispatch("myrecipes/DeleteProcess", this.recipeIDToDelete);
+      this.$store.dispatch("myrecipes/DeleteDetail", this.recipeIDToDelete);
       this.dialog = false;
     },
     ViewRecipe(id) {

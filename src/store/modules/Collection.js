@@ -30,13 +30,11 @@ const mycollection = {
       commit("StoreUserID", id);
     },
     async loadCollection({ commit }, userID) {
-      await axios
+      let response = await axios
         .get(`${process.env.VUE_APP_BACKEND}/api/find/collection/${userID}`)
-        .then((response) => {
-          commit("LOAD_COLLECTION", response.data);
+         await commit("LOAD_COLLECTION", response.data);
           console.log(response.data);
-        })
-        .catch((error) => console.log(error));
+    
     },
     async removeFromCollection({ commit, getters}, id) {
       const userID = getters.findUserID;

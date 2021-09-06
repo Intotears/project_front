@@ -26,7 +26,6 @@ export default {
   name: "Foodtag",
   data() {
     return {
-
     };
   },
   computed: {
@@ -48,7 +47,6 @@ export default {
   created() {
     this.$store.dispatch("showFoodtag/loadFoodtag");
   },
-
   methods: {
     // addSelectTag() {
     //   const selectTag = this.selectTag;

@@ -7,11 +7,61 @@
           dark
         ></v-app-bar-nav-icon>
         <v-app-bar-title><h3 class="headline">Yum!</h3></v-app-bar-title>
-        <v-text-field
-            solo
-            label="Append"
-            append-icon="mdi-map-marker"
-          ></v-text-field>
+        <v-spacer></v-spacer>
+
+        <v-autocomplete
+      v-model="model"
+      :items="items"
+      :loading="isLoading"
+      :search-input.sync="search"
+      chips
+      clearable
+      hide-details
+      hide-selected
+      item-text="name"
+      item-value="symbol"
+      label="Search for a coin..."
+      solo
+    >
+      <template v-slot:no-data>
+        <v-list-item>
+          <v-list-item-title>
+            Search for your favorite
+            <strong>Cryptocurrency</strong>
+          </v-list-item-title>
+        </v-list-item>
+      </template>
+      <template v-slot:selection="{ attr, on, item, selected }">
+        <v-chip
+          v-bind="attr"
+          :input-value="selected"
+          color="blue-grey"
+          class="white--text"
+          v-on="on"
+        >
+          <v-icon left>
+            mdi-bitcoin
+          </v-icon>
+          <span v-text="item.name"></span>
+        </v-chip>
+      </template>
+      <template v-slot:item="{ item }">
+        <v-list-item-avatar
+          color="indigo"
+          class="text-h5 font-weight-light white--text"
+        >
+          {{ item.name.charAt(0) }}
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title v-text="item.name"></v-list-item-title>
+          <v-list-item-subtitle v-text="item.symbol"></v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-icon>mdi-bitcoin</v-icon>
+        </v-list-item-action>
+      </template>
+    </v-autocomplete>
+        <!-- <v-autocomplete class="mx-2 ma-10" clearable dense></v-autocomplete> -->
 
         <v-spacer />
         <v-menu offset-y open-on-hover>
@@ -91,16 +141,21 @@ export default {
     drawer: false,
     navItems: [
       { title: "Home", icon: "mdi-home", route: "/" },
-      { title: "My recipes", icon: "mdi-book-open-variant", route: "/myRecipe" },
+      {
+        title: "My recipes",
+        icon: "mdi-book-open-variant",
+        route: "/myRecipe",
+      },
       { title: "Create Recipe", icon: "mdi-pencil", route: "/createRecipe" },
-      { title: "Collection", icon: "mdi-bookmark-multiple", route: "/collection" },
+      {
+        title: "Collection",
+        icon: "mdi-bookmark-multiple",
+        route: "/collection",
+      },
       { title: "Test", icon: "mdi-pencil", route: "/test" },
     ],
     userItems: [
-      { icon: "mdi-account",
-        title: "Profile",
-        route: "/profile",
-      },
+      { icon: "mdi-account", title: "Profile", route: "/profile" },
       { title: "Setting", icon: "mdi-cog" },
     ],
   }),
@@ -108,7 +163,6 @@ export default {
     currentUser() {
       return this.$store.state.auth.user;
     },
-
   },
   methods: {
     logout() {

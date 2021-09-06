@@ -24,15 +24,15 @@
             readonly
           ></v-rating>
 
-          <!-- <v-btn icon @click="addToCollection(all.recipeID)">
+          <v-btn icon @click="addToCollection(all.recipeID)">
             <v-icon>mdi-bookmark-outline</v-icon>
-          </v-btn> -->
-          <v-btn
+          </v-btn>
+          <!-- <v-btn
               icon
               @click="removeFromCollection(all.recipeID)"
             >
               <v-icon>mdi-bookmark-check</v-icon>
-            </v-btn>
+            </v-btn> -->
         </v-card-actions>
         <v-divider dark class="mb-2"></v-divider>
 
